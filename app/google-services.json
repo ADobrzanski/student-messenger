@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "197659232562",
+    "firebase_url": "https://studentmessenger-cbf8a.firebaseio.com",
+    "project_id": "studentmessenger-cbf8a",
+    "storage_bucket": "studentmessenger-cbf8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197659232562:android:3958321dc15edc7a",
+        "android_client_info": {
+          "package_name": "com.ag_kb_ad.studentmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197659232562-1g5a11d8vgq3q6fca0178p0m8u96ctil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ag_kb_ad.studentmessenger",
+            "certificate_hash": "6cccc8e799345bdd88d65ee28fe269e1639eaf3a"
+          }
+        },
+        {
+          "client_id": "197659232562-521tjsgsb68dkousimjaun096id481vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsZhgyxyEP1Eaf2GQetquBlyTuOhFjf_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197659232562-521tjsgsb68dkousimjaun096id481vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
