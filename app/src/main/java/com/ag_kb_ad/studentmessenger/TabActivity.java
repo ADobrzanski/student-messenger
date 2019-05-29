@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -48,6 +49,7 @@ public class TabActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mAuth.signOut();
                 signOutGoogle();
+                LoginManager.getInstance().logOut();
                 startActivity(new Intent(TabActivity.this, MainActivity.class));
             }
         });
