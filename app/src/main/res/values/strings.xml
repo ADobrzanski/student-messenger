@@ -4,4 +4,6 @@
     <string name="btn_sign_up_text">Sign up</string>
     <string name="txt_email_hint">Email</string>
     <string name="txt_password_hint">Password</string>
+    <string name="btn_sing_in_google_text">Login with Google</string>
+    <string name="google_client_id">197659232562-521tjsgsb68dkousimjaun096id481vq.apps.googleusercontent.com</string>
 </resources>
