@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView txt_email, txt_password;
     private Button btn_sign_in, btn_sign_up, btn_sign_in_google, btn_sign_in_facebook;
-    private LoginButton btn_facebook;
 
 
     @Override
@@ -77,14 +76,41 @@ public class MainActivity extends AppCompatActivity {
         btn_sign_in_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickSingInGoogle();
+                onClickSignInGoogle();
             }
         });
 
         btn_sign_in_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickSingInFacebook();
+                onClickSignInFacebook();
+            }
+        });
+
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(MainActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
+                AccessToken accessToken = loginResult.getAccessToken();
+                handleFacebookAccessToken(accessToken);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e(TAG, "Error during facebook auth", error.getCause());
+                Toast.makeText(MainActivity.this, "Error occured!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickSignUp();
             }
         });
     }
@@ -126,13 +152,17 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void onClickSingInGoogle() {
+    private void onClickSignInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN_GOOGLE);
     }
 
-    private void onClickSingInFacebook(){
+    private void onClickSignInFacebook(){
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+    }
+
+    private void onClickSignUp(){
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 
     @Override
