@@ -9,8 +9,7 @@
         android:color="#3C5A99"
         />
 
-    // Reduce the corner radius value
-    <corners android:radius="50dp" />
+    <corners android:radius="16dp" />
 
     <padding
         android:left="20dp"
