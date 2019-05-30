@@ -18,9 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class TabActivity extends AppCompatActivity {
+public class SampleUserActivity extends AppCompatActivity {
 
-    private static final String TAG = "TabActivity";
+    private static final String TAG = "SampleUserActivity";
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
@@ -32,7 +32,7 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab);
+        setContentView(R.layout.activity_sample);
 
         mAuth = FirebaseAuth.getInstance();
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -50,7 +50,7 @@ public class TabActivity extends AppCompatActivity {
                 mAuth.signOut();
                 signOutGoogle();
                 LoginManager.getInstance().logOut();
-                startActivity(new Intent(TabActivity.this, MainActivity.class));
+                startActivity(new Intent(SampleUserActivity.this, SignInActivity.class));
             }
         });
     }
@@ -69,7 +69,7 @@ public class TabActivity extends AppCompatActivity {
                 Log.e(TAG, ex.getMessage());
             }
         }else{
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
     }
 

@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(this, TabActivity.class);
+            Intent intent = new Intent(this, SampleUserActivity.class);
             finish();
             startActivity(intent);
         }
@@ -148,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User profile updated.");
-                            Intent intent = new Intent(SignUpActivity.this, TabActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, SampleUserActivity.class);
                             SignUpActivity.this.finish();
                             startActivity(intent);
                         }
