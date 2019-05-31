@@ -40,7 +40,7 @@ public class SampleUserActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        
+
         txt_user_data = findViewById(R.id.txt_user_data);
         btn_logout = findViewById(R.id.btn_log_out);
 

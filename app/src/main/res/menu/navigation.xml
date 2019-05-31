@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_conversations"
+        android:icon="@drawable/ic_recent"
+        android:title="@string/menu_recent" />
+
+    <item
+        android:id="@+id/navigation_invites"
+        android:icon="@drawable/ic_new_account"
+        android:title="@string/menu_invites" />
+
+    <item
+        android:id="@+id/navigation_school"
+        android:icon="@drawable/ic_school"
+        android:title="@string/menu_school" />
+
+    <item
+        android:id="@+id/navigation_lan"
+        android:icon="@drawable/ic_wifi"
+        android:title="@string/menu_lan" />
+
+</menu>
