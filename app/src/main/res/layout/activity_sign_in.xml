@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_theme"
+    android:fitsSystemWindows="true"
+    tools:context=".SignInActivity">
+
+    <ImageView
+        android:id="@+id/image_hermessage"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="42dp"
+        android:src="@drawable/hermessage_theme"
+        android:contentDescription="@string/banner_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_email"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints="email"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_username"
+        android:drawablePadding="7dp"
+        android:ems="10"
+        android:hint="@string/txt_email_hint"
+        android:inputType="textEmailAddress"
+
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_hermessage"
+        tools:ignore="MissingConstraints"
+        tools:targetApi="o" />
+
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints="password"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="7dp"
+        android:ems="10"
+        android:hint="@string/txt_password_hint"
+        android:inputType="textPassword"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_email"
+        tools:targetApi="o" />
+
+
+    <Button
+        android:id="@+id/btn_sign_in"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner_signing"
+        android:text="@string/btn_sign_in_text"
+        android:textAllCaps="false"
+        android:textColor="#bae4ff"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_password" />
+
+    <Button
+        android:id="@+id/btn_sing_in_google"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corner_google"
+        android:drawableStart="@drawable/ic_google"
+        android:drawablePadding="7dp"
+        android:text="@string/btn_sing_in_google_text"
+        android:textAllCaps="false"
+        android:textColor="#3C5A99"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_in_facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_sign_in_facebook"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_corner_facebook"
+        android:drawableStart="@drawable/ic_facebook"
+        android:drawablePadding="7dp"
+        android:text="@string/btn_sign_in_facebook_text"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/invite_to_signup"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/btn_sign_up"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sign_up"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/ic_new_account"
+        android:drawablePadding="4dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/btn_sign_up_text"
+        android:textAllCaps="false"
+        android:textColor="#bae4ff"
+
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_sign_up"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>
