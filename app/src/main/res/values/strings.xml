@@ -21,4 +21,7 @@
     <string name="menu_lan">LAN</string>
 
     <string name="txt_search_hint">Search</string>
+    <string name="desc_user_avatar">user avatar</string>
+    <string name="desc_reject_invitation">reject invitation</string>
+    <string name="desc_accept_invitation">accept invitation</string>
 </resources>

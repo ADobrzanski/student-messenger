@@ -26,10 +26,13 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:exifinterface:28.0.0'
 
 
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-firestore:19.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     //noinspection GradleDependency
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'

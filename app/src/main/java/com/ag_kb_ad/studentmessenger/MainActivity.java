@@ -7,27 +7,46 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
+import javax.annotation.Nullable;
+
 public class MainActivity extends AppCompatActivity {
 
-    //private TextView mTextMessage;
-    private FrameLayout fragment_container;
+    private static final String TAG = "MainActivity";
+
+
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mTextMessage = (TextView) findViewById(R.id.message);
-        fragment_container = findViewById(R.id.fragment_container);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(fragment.toString());
@@ -37,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new InvitesFragment());
                     return true;
                 case R.id.navigation_school:
-                    //mTextMessage.setText(R.string.title_notifications);
+
                     return true;
                 case R.id.navigation_lan:
-                    //mTextMessage.setText(R.string.title_notifications);
+
                     return true;
             }
             return false;
