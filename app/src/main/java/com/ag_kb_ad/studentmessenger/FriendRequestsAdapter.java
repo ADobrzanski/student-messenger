@@ -11,19 +11,23 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAdapter.InviteViewHolder> {
+public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAdapter.FriendRequestViewHolder> {
 
-    public class InviteViewHolder extends RecyclerView.ViewHolder{
+    private FirebaseFirestore firestore;
+
+    public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         ImageView user_avaar;
         TextView user_display_name;
         ImageButton button_accept;
         ImageButton button_reject;
 
-        public InviteViewHolder(@NonNull View itemView) {
+        public FriendRequestViewHolder(@NonNull View itemView) {
             super(itemView);
             user_avaar = itemView.findViewById(R.id.user_avatar);
             user_display_name = itemView.findViewById(R.id.user_display_name);
@@ -32,34 +36,34 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         }
     }
 
-    private ArrayList<FriendRequestModel> mDataset;
+    private ArrayList<FriendModel> mDataset;
 
-    public FriendRequestsAdapter(ArrayList<FriendRequestModel> searchResults){
+    public FriendRequestsAdapter(ArrayList<FriendModel> searchResults){
         mDataset = searchResults;
+        firestore = FirebaseFirestore.getInstance();
     }
 
-    public void setDataset(ArrayList<FriendRequestModel> searchResults){
+    public void setDataset(ArrayList<FriendModel> searchResults){
         mDataset = searchResults;
     }
 
     @NonNull
     @Override
-    public InviteViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(R.layout.item_friend_request, viewGroup, shouldAttachToParentImmediately);
-        InviteViewHolder viewHolder = new InviteViewHolder(view);
-
-        return viewHolder;
+        return new FriendRequestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InviteViewHolder inviteViewHolder, int i) {
-        FriendRequestModel friendRequestModel = mDataset.get(i);
-        Picasso.get().load(Uri.parse(friendRequestModel.getAvatarURL())).into(inviteViewHolder.user_avaar);
-        inviteViewHolder.user_display_name.setText(friendRequestModel.getDisplaName());
+    public void onBindViewHolder(@NonNull FriendRequestViewHolder viewHolder, int i) {
+        FriendModel friendModel = mDataset.get(i);
+
+        Picasso.get().load(Uri.parse(friendModel.getAvatarURL())).into(viewHolder.user_avaar);
+        viewHolder.user_display_name.setText(friendModel.getDisplaName());
     }
 
     @Override

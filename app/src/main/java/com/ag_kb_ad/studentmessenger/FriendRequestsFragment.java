@@ -16,11 +16,11 @@ import android.widget.ImageButton;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -31,8 +31,8 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
-    private CollectionReference mIncomingInvites;
-    private ArrayList<FriendRequestModel> invitesDataset;
+    private Query mIncomingFriendRequests;
+    private ArrayList<FriendModel> friendRequests;
 
     private RecyclerView recyclerView;
     private FriendRequestsAdapter mAdapter;
@@ -50,14 +50,15 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
 
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
-        invitesDataset = new ArrayList<>();
+        friendRequests = new ArrayList<>();
 
-        mIncomingInvites = mFirestore.collection("users")
+        mIncomingFriendRequests = mFirestore.collection("users")
                 .document(mAuth.getCurrentUser().getUid())
-                .collection("incoming-invites");
-        mIncomingInvites.addSnapshotListener(this);
+                .collection("friend-requests-incoming")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
+        mIncomingFriendRequests.addSnapshotListener(this);
 
-        mAdapter = new FriendRequestsAdapter(invitesDataset);
+        mAdapter = new FriendRequestsAdapter(friendRequests);
     }
 
     @Override
@@ -93,41 +94,53 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
             return;
         }
 
-        try{
-            boolean shouldUpdateNow = (snapshot.size() == 1);
-            for (DocumentChange dc : snapshot.getDocumentChanges()){
-                switch (dc.getType()){
-                    case ADDED:
-                        QueryDocumentSnapshot doc = dc.getDocument();
-                        invitesDataset.add(new FriendRequestModel()
-                                .setDisplaName(doc.getString("displayName"))
-                                .setAvatarURL(doc.getString("avatarURL")));
+        if(snapshot == null) return;
+        if(snapshot.getQuery() == mIncomingFriendRequests){
+            handleIncomingFriendRequests(snapshot);
+        }
+    }
 
-                        if(shouldUpdateNow){
-                            mAdapter.setDataset(invitesDataset);
-                            mAdapter.notifyItemInserted(invitesDataset.size()-1);
-                        }
-                        break;
-                    case MODIFIED:
-                        break;
-                    case REMOVED:
-                        break;
-                }
-            }
+    private void handleIncomingFriendRequests(QuerySnapshot snapshot){
+        boolean shouldUpdateNow = (snapshot.size() < 3);
 
-            if(!shouldUpdateNow){
-                mAdapter.setDataset(invitesDataset);
-                mAdapter.notifyDataSetChanged();
+        for (DocumentChange dc : snapshot.getDocumentChanges()){
+            QueryDocumentSnapshot doc = dc.getDocument();
+
+            switch (dc.getType()){
+                case ADDED:
+                    friendRequests.add(new FriendModel()
+                            .setUid(doc.getId())
+                            .setDisplaName(doc.getString("displayName"))
+                            .setAvatarURL(doc.getString("avatarURL")));
+
+                    if(shouldUpdateNow){
+                        mAdapter.setDataset(friendRequests);
+                        mAdapter.notifyItemInserted(friendRequests.size()-1);
+                    }
+                    break;
+                case MODIFIED:
+                    //ignore modify data, not important
+                    break;
+                case REMOVED:
+                    int removedItemIndex = 0;
+                    for(FriendModel invitation : friendRequests){
+                        if(invitation.getUid().equals(doc.getId())) break;
+                        ++removedItemIndex;
+                    }
+                    if(removedItemIndex >= friendRequests.size()) return;
+
+                    friendRequests.remove(removedItemIndex);
+                    if(shouldUpdateNow){
+                        mAdapter.setDataset(friendRequests);
+                        mAdapter.notifyItemRemoved(removedItemIndex);
+                    }
+                    break;
             }
-        }catch (Exception e1){
-            Log.e("Invites", e1.getMessage());
         }
 
-
-//        if (snapshot != null && !snapshot.isEmpty()) {
-//            snapshot
-//        } else {
-//            Log.d(TAG, "Current data: null");
-//        }
+        if(!shouldUpdateNow){
+            mAdapter.setDataset(friendRequests);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

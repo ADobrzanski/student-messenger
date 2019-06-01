@@ -1,17 +1,27 @@
 package com.ag_kb_ad.studentmessenger;
 
-public class FriendRequestModel {
+public class FriendModel {
+    private String uid;
     private String displaName;
     private String avatarURL;
 
-    public FriendRequestModel setDisplaName(String displaName) {
+    public FriendModel setUid(String uid) {
+        this.uid = uid;
+        return this;
+    }
+
+    public FriendModel setDisplaName(String displaName) {
         this.displaName = displaName;
         return this;
     }
 
-    public FriendRequestModel setAvatarURL(String avatarURL) {
+    public FriendModel setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
         return this;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getDisplaName() {
