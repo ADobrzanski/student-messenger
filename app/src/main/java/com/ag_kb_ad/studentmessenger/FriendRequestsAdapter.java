@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class InvitesAdapter extends RecyclerView.Adapter<InvitesAdapter.InviteViewHolder> {
+public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAdapter.InviteViewHolder> {
 
     public class InviteViewHolder extends RecyclerView.ViewHolder{
         ImageView user_avaar;
@@ -32,13 +32,13 @@ public class InvitesAdapter extends RecyclerView.Adapter<InvitesAdapter.InviteVi
         }
     }
 
-    private ArrayList<InviteModel> mDataset;
+    private ArrayList<FriendRequestModel> mDataset;
 
-    public InvitesAdapter(ArrayList<InviteModel> searchResults){
+    public FriendRequestsAdapter(ArrayList<FriendRequestModel> searchResults){
         mDataset = searchResults;
     }
 
-    public void setDataset(ArrayList<InviteModel> searchResults){
+    public void setDataset(ArrayList<FriendRequestModel> searchResults){
         mDataset = searchResults;
     }
 
@@ -49,7 +49,7 @@ public class InvitesAdapter extends RecyclerView.Adapter<InvitesAdapter.InviteVi
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(R.layout.item_invite, viewGroup, shouldAttachToParentImmediately);
+        View view = inflater.inflate(R.layout.item_friend_request, viewGroup, shouldAttachToParentImmediately);
         InviteViewHolder viewHolder = new InviteViewHolder(view);
 
         return viewHolder;
@@ -57,9 +57,9 @@ public class InvitesAdapter extends RecyclerView.Adapter<InvitesAdapter.InviteVi
 
     @Override
     public void onBindViewHolder(@NonNull InviteViewHolder inviteViewHolder, int i) {
-        InviteModel inviteModel = mDataset.get(i);
-        Picasso.get().load(Uri.parse(inviteModel.getAvatarURL())).into(inviteViewHolder.user_avaar);
-        inviteViewHolder.user_display_name.setText(inviteModel.getDisplaName());
+        FriendRequestModel friendRequestModel = mDataset.get(i);
+        Picasso.get().load(Uri.parse(friendRequestModel.getAvatarURL())).into(inviteViewHolder.user_avaar);
+        inviteViewHolder.user_display_name.setText(friendRequestModel.getDisplaName());
     }
 
     @Override

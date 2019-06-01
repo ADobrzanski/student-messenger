@@ -1,15 +1,15 @@
 package com.ag_kb_ad.studentmessenger;
 
-public class InviteModel {
+public class FriendRequestModel {
     private String displaName;
     private String avatarURL;
 
-    public InviteModel setDisplaName(String displaName) {
+    public FriendRequestModel setDisplaName(String displaName) {
         this.displaName = displaName;
         return this;
     }
 
-    public InviteModel setAvatarURL(String avatarURL) {
+    public FriendRequestModel setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
         return this;
     }

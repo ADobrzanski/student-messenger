@@ -7,24 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-
-import javax.annotation.Nullable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_invites:
-                    replaceFragment(new InvitesFragment());
+                    replaceFragment(new FriendRequestsFragment());
                     return true;
                 case R.id.navigation_school:
 

@@ -26,21 +26,21 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class InvitesFragment extends Fragment implements EventListener<QuerySnapshot> {
+public class FriendRequestsFragment extends Fragment implements EventListener<QuerySnapshot> {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
     private CollectionReference mIncomingInvites;
-    private ArrayList<InviteModel> invitesDataset;
+    private ArrayList<FriendRequestModel> invitesDataset;
 
     private RecyclerView recyclerView;
-    private InvitesAdapter mAdapter;
+    private FriendRequestsAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton btn_settings;
 
 
-    public InvitesFragment() {
+    public FriendRequestsFragment() {
         // Required empty public constructor
     }
 
@@ -57,14 +57,14 @@ public class InvitesFragment extends Fragment implements EventListener<QuerySnap
                 .collection("incoming-invites");
         mIncomingInvites.addSnapshotListener(this);
 
-        mAdapter = new InvitesAdapter(invitesDataset);
+        mAdapter = new FriendRequestsAdapter(invitesDataset);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_invites, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend_requests, container, false);
         recyclerView = view.findViewById(R.id.recycler_almost_friends);
 
         btn_settings = view.findViewById(R.id.btn_settings);
@@ -89,7 +89,7 @@ public class InvitesFragment extends Fragment implements EventListener<QuerySnap
     @Override
     public void onEvent(@javax.annotation.Nullable QuerySnapshot snapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
         if (e != null) {
-            Log.w("InvitesFragment", "Listen failed.", e);
+            Log.w("FriendRequestsFragment", "Listen failed.", e);
             return;
         }
 
@@ -99,7 +99,7 @@ public class InvitesFragment extends Fragment implements EventListener<QuerySnap
                 switch (dc.getType()){
                     case ADDED:
                         QueryDocumentSnapshot doc = dc.getDocument();
-                        invitesDataset.add(new InviteModel()
+                        invitesDataset.add(new FriendRequestModel()
                                 .setDisplaName(doc.getString("displayName"))
                                 .setAvatarURL(doc.getString("avatarURL")));
 
