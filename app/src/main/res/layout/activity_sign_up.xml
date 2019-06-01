@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signup_theme"
+    android:background="@drawable/main_theme"
     tools:context=".SignUpActivity">
 
     <ImageView
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="48dp"
-        android:text="< go back"
+        android:text="@string/btn_back_text"
         android:textAllCaps="false"
         android:textColor="#fff"
         app:layout_constraintStart_toStartOf="parent"

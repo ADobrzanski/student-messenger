@@ -25,4 +25,5 @@
     <string name="desc_user_avatar">user avatar</string>
     <string name="desc_reject_invitation">reject invitation</string>
     <string name="desc_accept_invitation">accept invitation</string>
+    <string name="btn_back_text"><![CDATA[< go back]]></string>
 </resources>
