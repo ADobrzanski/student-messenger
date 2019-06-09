@@ -11,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -23,12 +25,23 @@ import java.util.HashMap;
 
 public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAdapter.FriendRequestViewHolder> {
 
+    public enum ItemType {
+        REQUEST,
+        SEARCH_RESULT
+    }
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private ItemType itemType;
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
 
     public class FriendRequestViewHolder extends RecyclerView.ViewHolder{
         ImageView user_avaar;
         TextView user_display_name;
+        ImageButton button_send_request;
         ImageButton button_accept;
         ImageButton button_reject;
 
@@ -36,6 +49,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             super(itemView);
             user_avaar = itemView.findViewById(R.id.user_avatar);
             user_display_name = itemView.findViewById(R.id.user_display_name);
+            button_send_request = itemView.findViewById(R.id.btn_send_request);
             button_accept = itemView.findViewById(R.id.btn_accept);
             button_reject = itemView.findViewById(R.id.btn_reject);
         }
@@ -47,6 +61,9 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         mDataset = searchResults;
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
+
+        // default value for item display format is request
+        itemType = ItemType.REQUEST;
     }
 
     public void setDataset(ArrayList<FriendModel> searchResults){
@@ -70,6 +87,17 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
         Picasso.get().load(Uri.parse(friendModel.getAvatarURL())).into(viewHolder.user_avaar);
         viewHolder.user_display_name.setText(friendModel.getDisplaName());
+
+        if(itemType == ItemType.REQUEST){
+            viewHolder.button_accept.setVisibility(View.VISIBLE);
+            viewHolder.button_reject.setVisibility(View.VISIBLE);
+            viewHolder.button_send_request.setVisibility(View.GONE);
+        }else{
+            viewHolder.button_accept.setVisibility(View.GONE);
+            viewHolder.button_reject.setVisibility(View.GONE);
+            viewHolder.button_send_request.setVisibility(View.VISIBLE);
+        }
+
         viewHolder.button_reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +111,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 invitation.delete();
             }
         });
+
         viewHolder.button_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +136,26 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
                 transaction.set(newConversation, conversation);
                 transaction.commit();
+            }
+        });
+
+        viewHolder.button_send_request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String personFoundUid = mDataset.get(viewHolder.getAdapterPosition()).getUid();
+                final FirebaseUser user = mAuth.getCurrentUser();
+
+                DocumentReference invitation = mFirestore.collection("users")
+                        .document(personFoundUid)
+                        .collection("friend-requests-incoming")
+                        .document(user.getUid());
+
+                HashMap<String, Object> invitationData = new HashMap<>();
+                invitationData.put("avatarURL", user.getPhotoUrl().toString());
+                invitationData.put("displayName", user.getDisplayName());
+                invitationData.put("timestamp", Timestamp.now());
+
+                invitation.set(invitationData);
 
             }
         });

@@ -57,6 +57,7 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
 
     private RecyclerView recyclerView;
     private FriendRequestsAdapter mAdapter;
+    private boolean requestMode;
     private RecyclerView.LayoutManager layoutManager;
 
     private ImageButton btn_settings;
@@ -75,6 +76,8 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
         mFirestore = FirebaseFirestore.getInstance();
         friendRequests = new ArrayList<>();
         searchResult = new ArrayList<>();
+
+        requestMode = true;
 
         mIncomingFriendRequests = mFirestore.collection("users")
                 .document(mAuth.getCurrentUser().getUid())
@@ -116,8 +119,10 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
                     public void accept(CharSequence charSequence){
                         Log.d("DEBOUNCE", "myyyk");
                         if(charSequence.length() > 0){
+                            requestMode = false;
                             searchFriendsByDisplayName(charSequence.toString());
                         }else{
+                            requestMode = true;
                             mAdapter.setDataset(friendRequests);
                         }
 
@@ -165,8 +170,9 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
                             .setDisplaName(doc.getString("displayName"))
                             .setAvatarURL(doc.getString("avatarURL")));
 
-                    if(shouldUpdateNow){
+                    if(shouldUpdateNow && requestMode){
                         mAdapter.setDataset(friendRequests);
+                        mAdapter.setItemType(FriendRequestsAdapter.ItemType.REQUEST);
                         mAdapter.notifyItemInserted(friendRequests.size()-1);
                     }
                     break;
@@ -182,7 +188,7 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
                     if(removedItemIndex >= friendRequests.size()) return;
 
                     friendRequests.remove(removedItemIndex);
-                    if(shouldUpdateNow){
+                    if(shouldUpdateNow && requestMode){
                         mAdapter.setDataset(friendRequests);
                         mAdapter.notifyItemRemoved(removedItemIndex);
                     }
@@ -190,7 +196,7 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
             }
         }
 
-        if(!shouldUpdateNow){
+        if(!shouldUpdateNow && requestMode){
             mAdapter.setDataset(friendRequests);
             mAdapter.notifyDataSetChanged();
         }
@@ -214,6 +220,7 @@ public class FriendRequestsFragment extends Fragment implements EventListener<Qu
                     );
                 }
                 mAdapter.setDataset(searchResult);
+                mAdapter.setItemType(FriendRequestsAdapter.ItemType.SEARCH_RESULT);
                 mAdapter.notifyDataSetChanged();
             }
         });

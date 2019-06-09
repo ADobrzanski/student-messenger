@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="32dp"
+    android:layout_height="58dp"
     android:gravity="center_vertical"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_corner_gray">
 
     <ImageView
         android:id="@+id/user_avatar"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:contentDescription="@string/desc_user_avatar"/>
 
     <TextView
@@ -18,23 +19,36 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingStart="8dp"
-        android:paddingEnd="8dp"/>
+        android:paddingEnd="8dp"
+        android:textSize="14sp"/>
+
+    <ImageButton
+        android:id="@+id/btn_send_request"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_new_account"
+        android:tint="@color/colorPrimary"
+        tools:src="@drawable/ic_new_account"
+        android:contentDescription="@string/send_friend_request_desc"/>
 
     <ImageButton
         android:id="@+id/btn_reject"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_clear"
+        android:tint="#EB9B9B"
         tools:src="@drawable/ic_clear"
         android:contentDescription="@string/desc_reject_invitation"/>
 
     <ImageButton
         android:id="@+id/btn_accept"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_check"
+        android:tint="@color/colorPrimary"
         tools:src="@drawable/ic_check"
         android:contentDescription="@string/desc_accept_invitation"/>
 
