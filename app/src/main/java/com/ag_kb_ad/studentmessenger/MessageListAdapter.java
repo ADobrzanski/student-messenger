@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
@@ -25,6 +26,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     private FirebaseFirestore messagesBase;
 
     private String user;
+    private ArrayList<BaseMessage> mDataset;
+
 
     public MessageListAdapter(Context context, List<BaseMessage> messageList) {
         mContext = context;
@@ -81,6 +84,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             case VIEW_TYPE_MESSAGE_RECEIVED:
                 ((ReceivedMessageHolder) holder).bind(message);
         }
+    }
+
+    public void setDataset(ArrayList<BaseMessage> searchResults){
+        mDataset = searchResults;
     }
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {

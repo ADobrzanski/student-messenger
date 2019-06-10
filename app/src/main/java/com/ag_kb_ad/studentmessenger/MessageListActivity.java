@@ -26,7 +26,7 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
     private FirebaseFirestore messagesBase;
     private Query messageSearch;
     private ArrayList<BaseMessage> messages;
-    private ArrayList<BaseMessage> handleIncomingMessages;
+//    private ArrayList<BaseMessage> handleIncomingMessages;
     private String path;
 
     @Override
@@ -64,6 +64,7 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
     }
 
     private void handleReceivedMessages(QuerySnapshot snapshot) {
+        boolean shouldUpdateNow = (snapshot.size() < 3);
         for (DocumentChange dc : snapshot.getDocumentChanges()) {
             QueryDocumentSnapshot doc = dc.getDocument();
 
@@ -74,6 +75,10 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
                             .setNickname(doc.getString("displayName"))
                             .setMessage(doc.getString("message"))
                             .setCreatedAt(doc.getLong("date")));
+
+                    if(shouldUpdateNow){
+                        mMessageAdapter.setDataset(messages);
+                        mMessageAdapter.notifyItemInserted(messages.size()-1);}
                     break;
                 case MODIFIED:
                     break;
