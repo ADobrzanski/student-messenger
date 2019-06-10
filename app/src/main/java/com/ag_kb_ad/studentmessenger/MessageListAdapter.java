@@ -7,8 +7,10 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -18,6 +20,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<BaseMessage> mMessageList;
+
+    private FirebaseAuth messagesAuth;
+    private FirebaseFirestore messagesBase;
+
+    private String user;
 
     public MessageListAdapter(Context context, List<BaseMessage> messageList) {
         mContext = context;
@@ -34,18 +41,21 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         BaseMessage message = mMessageList.get(position);
 
-//        if (message.getSender().getUserId().equals(SendBird.getCurrentUser().getUserId())) {
-//            // If the current user is the sender of the message
-//            return VIEW_TYPE_MESSAGE_SENT;
-//        } else {
-//            // If some other user sent the message
+        if (message.getUserId().equals(user)) {
+            // If the current user is the sender of the message
+            return VIEW_TYPE_MESSAGE_SENT;
+        } else {
+            // If some other user sent the message
             return VIEW_TYPE_MESSAGE_RECEIVED;
-//        }
+        }
     }
 
     // Inflates the appropriate layout according to the ViewType.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        messagesAuth = FirebaseAuth.getInstance();
+        messagesBase = FirebaseFirestore.getInstance();
+        user = messagesAuth.getCurrentUser().getUid();
         View view;
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
@@ -93,7 +103,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText;
-        ImageView profileImage;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
 
         ReceivedMessageHolder(View itemView) {
@@ -102,7 +111,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.text_message_time);
             nameText = (TextView) itemView.findViewById(R.id.text_message_name);
-            profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
         }
 
         void bind(BaseMessage message) {
@@ -110,7 +118,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             // Format the stored timestamp into a readable String using method.
             timeText.setText(formatter.format(message.getCreatedAt()));
-            nameText.setText(message.getSender().getNickname());
+            nameText.setText(message.getNickname());
         }
     }
 }

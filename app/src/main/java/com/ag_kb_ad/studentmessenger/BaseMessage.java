@@ -4,7 +4,6 @@ import android.content.Context;
 
 public class BaseMessage {
     public String message;
-    public BaseMessage sender;
     public long createdAt;
     public String userId;
     public String nickname;
@@ -13,9 +12,8 @@ public class BaseMessage {
 
     }
 
-    public BaseMessage(String message, BaseMessage sender, long createdAt) {
+    public BaseMessage(String message,  long createdAt) {
         this.message = message;
-        this.sender = sender;
         this.createdAt = createdAt;
     }
 
@@ -23,39 +21,36 @@ public class BaseMessage {
         return message;
     }
 
-    public void setMessage(String message) {
+    public BaseMessage setMessage(String message) {
         this.message = message;
-    }
-
-    public BaseMessage getSender() {
-        return sender;
-    }
-
-    public void setSender(BaseMessage sender) {
-        this.sender = sender;
+        return this;
     }
 
     public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public BaseMessage setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public BaseMessage setUserId(String userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public BaseMessage setNickname(String nickname) {
+
         this.nickname = nickname;
+        return this;
     }
 }
