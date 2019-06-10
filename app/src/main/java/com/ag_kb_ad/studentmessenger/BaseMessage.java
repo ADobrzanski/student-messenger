@@ -12,12 +12,9 @@ public class BaseMessage {
 
     }
 
-    public BaseMessage(String message,  long createdAt, String userId, String nickname) {
+    public BaseMessage(String message,  long createdAt) {
         this.message = message;
-        this.createdAt = createdAt;
-        this.userId = userId;
-        this.nickname = nickname;
-    }
+        this.createdAt = createdAt;}
 
     public String getMessage() {
         return message;

@@ -41,7 +41,7 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
     private Button sendButton;
     private TextView messageField;
 
-    Map<String, Object> data = new HashMap<>();
+
 
     @Override
 
@@ -52,14 +52,16 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Map<String, Object> data = new HashMap<>();
                 String message = messageField.getText().toString();
                 data.put("message", message);
                 data.put("createdAt", Timestamp.now());
                 data.put("userId", messagesAuth.getCurrentUser().getUid());
                 data.put("nickname", messagesAuth.getCurrentUser().getDisplayName());
 
-                messagesBase.collection(path)
-                        .document("/messages")
+                messagesBase.document(path)
+                        .collection("messages")
+                        .document()
                         .set(data)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -79,7 +81,6 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
                         , Query.Direction.DESCENDING);
         messageSearch.addSnapshotListener(this);
         setContentView(R.layout.activity_conversation);
-
 
         mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         mMessageAdapter = new MessageListAdapter(this, messages);
@@ -127,9 +128,5 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
             mMessageAdapter.setDataset(messages);
             mMessageAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void handleSendMessages(QuerySnapshot snapshot) {
-
     }
 }
