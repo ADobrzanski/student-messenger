@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Student Messenger</string>
     <string name="btn_sign_in_text">Sign in</string>
-    <string name="btn_sign_up_text">create with email</string>
+    <string name="btn_sign_up_text">Sign up</string>
+    <string name="btn_sign_up_back_text">go back</string>
     <string name="txt_email_hint">Email</string>
     <string name="txt_password_hint">Password</string>
     <string name="btn_sing_in_google_text">Login with Google</string>
@@ -11,4 +12,19 @@
     <string name="btn_sign_in_facebook_text">Login with Facebook</string>
     <string name="banner_description">Hermessage logo</string>
     <string name="invite_to_signup">You have no account?</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="menu_recent">Recent</string>
+    <string name="menu_invites">Invites</string>
+    <string name="menu_school">School</string>
+    <string name="menu_lan">LAN</string>
+
+    <string name="txt_search_hint">Search</string>
+    <string name="desc_user_avatar">user avatar</string>
+    <string name="desc_reject_invitation">reject invitation</string>
+    <string name="desc_accept_invitation">accept invitation</string>
+    <string name="btn_back_text"><![CDATA[< go back]]></string>
+    <string name="send_friend_request_desc">Send friend request</string>
 </resources>

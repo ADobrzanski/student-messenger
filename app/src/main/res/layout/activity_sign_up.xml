@@ -4,30 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_theme"
     tools:context=".SignUpActivity">
+
+    <ImageView
+        android:id="@+id/image_hermessage"
+        android:layout_width="278dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="42dp"
+        android:contentDescription="@string/banner_description"
+        android:src="@drawable/hermessage_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_back"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="48dp"
+        android:text="@string/btn_back_text"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_hermessage" />
 
     <EditText
         android:id="@+id/txt_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:autofillHints="email"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_username"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="@string/txt_email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <EditText
         android:id="@+id/txt_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_username"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -37,11 +71,14 @@
 
     <EditText
         android:id="@+id/txt_password"
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="@string/txt_password_hint"
         android:inputType="textPassword"
@@ -51,11 +88,14 @@
 
     <EditText
         android:id="@+id/txt_password_repeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="Repeat password"
         android:inputType="textPassword"
@@ -68,21 +108,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner_signing"
         android:text="@string/btn_sign_up_text"
+        android:textAllCaps="false"
+        android:textColor="#bae4ff"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_password_repeat" />
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="go back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

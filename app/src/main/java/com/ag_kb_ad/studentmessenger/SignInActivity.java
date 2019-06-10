@@ -119,7 +119,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) startActivity(new Intent(this, SampleUserActivity.class));
+        if(currentUser != null) startActivity(new Intent(this, MainActivity.class));
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
@@ -139,8 +139,8 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            startActivity(new Intent(SignInActivity.this, SampleUserActivity.class));
-                        } else {
+                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                        }else{
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
@@ -196,7 +196,7 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            startActivity(new Intent(SignInActivity.this, SampleUserActivity.class));
+                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -219,7 +219,7 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            startActivity(new Intent(SignInActivity.this, SampleUserActivity.class));
+                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
