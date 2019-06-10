@@ -26,7 +26,6 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
     private FirebaseFirestore messagesBase;
     private Query messageSearch;
     private ArrayList<BaseMessage> messages;
-//    private ArrayList<BaseMessage> handleIncomingMessages;
     private String path;
 
     @Override
@@ -76,15 +75,20 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
                             .setMessage(doc.getString("message"))
                             .setCreatedAt(doc.getLong("date")));
 
-                    if(shouldUpdateNow){
+                    if (shouldUpdateNow) {
                         mMessageAdapter.setDataset(messages);
-                        mMessageAdapter.notifyItemInserted(messages.size()-1);}
+                        mMessageAdapter.notifyItemInserted(messages.size() - 1);
+                    }
                     break;
                 case MODIFIED:
                     break;
                 case REMOVED:
                     break;
             }
+        }
+        if (!shouldUpdateNow) {
+            mMessageAdapter.setDataset(messages);
+            mMessageAdapter.notifyDataSetChanged();
         }
     }
 }
