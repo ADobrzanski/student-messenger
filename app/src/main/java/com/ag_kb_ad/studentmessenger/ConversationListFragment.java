@@ -161,7 +161,8 @@ public class ConversationListFragment extends Fragment implements EventListener<
                             .setFriendDisplayName(doc.getString(friendsUid))
                             .setFriendAvatarURL(doc.getString(friendsUid+"_img"))
                             .setLastMessage(doc.getString("lastMessage"))
-                            .setFriendUid(friendsUid));
+                            .setFriendUid(friendsUid)
+                            .setDocumentPath(doc.getReference().getPath()));
 
                     if(shouldUpdateNow){
                         mAdapter.setDataset(conversations);

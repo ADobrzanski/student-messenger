@@ -2,9 +2,11 @@ package com.ag_kb_ad.studentmessenger;
 
 import android.content.Context;
 
+import java.util.Date;
+
 public class BaseMessage {
     public String message;
-    public long createdAt;
+    public Date createdAt;
     public String userId;
     public String nickname;
 
@@ -12,7 +14,7 @@ public class BaseMessage {
 
     }
 
-    public BaseMessage(String message,  long createdAt) {
+    public BaseMessage(String message,  Date createdAt) {
         this.message = message;
         this.createdAt = createdAt;}
 
@@ -25,11 +27,11 @@ public class BaseMessage {
         return this;
     }
 
-    public long getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public BaseMessage setCreatedAt(long createdAt) {
+    public BaseMessage setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
         return this;
     }

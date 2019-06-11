@@ -47,6 +47,9 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_conversation);
+
+
         messageField = findViewById(R.id.edittext_chatbox);
         sendButton = findViewById(R.id.button_chatbox_send);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -55,9 +58,8 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
                 Map<String, Object> data = new HashMap<>();
                 String message = messageField.getText().toString();
                 data.put("message", message);
-                data.put("createdAt", Timestamp.now());
-                data.put("userId", messagesAuth.getCurrentUser().getUid());
-                data.put("nickname", messagesAuth.getCurrentUser().getDisplayName());
+                data.put("timestamp", Timestamp.now());
+                data.put("uid", messagesAuth.getCurrentUser().getUid());
 
                 messagesBase.document(path)
                         .collection("messages")
@@ -74,21 +76,26 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
         messagesAuth = FirebaseAuth.getInstance();
         messagesBase = FirebaseFirestore.getInstance();
         path = getIntent().getExtras().getString("path");
+        Log.d("PATH", path);
         messages = new ArrayList<>();
         messageSearch = messagesBase.document(path)
                 .collection("messages")
                 .orderBy("timestamp"
                         , Query.Direction.DESCENDING);
         messageSearch.addSnapshotListener(this);
-        setContentView(R.layout.activity_conversation);
+
 
         mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         mMessageAdapter = new MessageListAdapter(this, messages);
-        mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        mMessageRecycler.setLayoutManager(layoutManager);
+        mMessageRecycler.setAdapter(mMessageAdapter);
     }
 
     @Override
     public void onEvent(@javax.annotation.Nullable QuerySnapshot snapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+        Log.d("TAAAG", "co jest!");
         if (e != null) {
             Log.w("FriendRequestsFragment", "Listen failed.", e);
             return;
@@ -107,11 +114,10 @@ public class MessageListActivity extends AppCompatActivity implements EventListe
 
             switch (dc.getType()) {
                 case ADDED:
-                    messages.add(new BaseMessage()
-                            .setUserId(doc.getId())
-                            .setNickname(doc.getString("displayName"))
+                    messages.add(0, new BaseMessage()
+                            .setUserId(doc.getString("uid"))
                             .setMessage(doc.getString("message"))
-                            .setCreatedAt(doc.getLong("date")));
+                            .setCreatedAt(doc.getTimestamp("timestamp").toDate()));
 
                     if (shouldUpdateNow) {
                         mMessageAdapter.setDataset(messages);

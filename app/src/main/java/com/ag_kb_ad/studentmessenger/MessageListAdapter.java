@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
@@ -66,7 +67,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             return new SentMessageHolder(view);
         } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_message, parent, false);
+                    .inflate(R.layout.item_message_received, parent, false);
             return new ReceivedMessageHolder(view);
         }
         return null;
@@ -92,6 +93,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
 
         SentMessageHolder(View itemView) {
             super(itemView);
@@ -104,7 +106,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(DateUtils.formatDateTime(mContext, message.getCreatedAt(), DateUtils.FORMAT_SHOW_TIME));
+            timeText.setText(formatter.format(message.getCreatedAt()));
         }
     }
 
@@ -117,7 +119,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.text_message_time);
-            nameText = (TextView) itemView.findViewById(R.id.text_message_name);
         }
 
         void bind(BaseMessage message) {
@@ -125,7 +126,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             // Format the stored timestamp into a readable String using method.
             timeText.setText(formatter.format(message.getCreatedAt()));
-            nameText.setText(message.getNickname());
+            //nameText.setText(message.getNickname());
         }
     }
 }
