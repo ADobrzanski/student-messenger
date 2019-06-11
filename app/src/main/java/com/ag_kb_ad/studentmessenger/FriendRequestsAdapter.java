@@ -131,6 +131,15 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 conversation.put("name", null);
                 ArrayList<String> participants = new ArrayList<String>(){{add(issuerUid); add(userUid);}};
                 conversation.put("participants", participants);
+                
+                conversation.put("lastMessage", "");
+                conversation.put("timestamp", Timestamp.now());
+
+                conversation.put(userUid, mAuth.getCurrentUser().getDisplayName());
+                conversation.put(userUid+"_img", mAuth.getCurrentUser().getPhotoUrl());
+
+                conversation.put(issuerUid, mDataset.get(viewHolder.getAdapterPosition()).getDisplaName());
+                conversation.put(issuerUid+"_img", mDataset.get(viewHolder.getAdapterPosition()).getAvatarURL());
 
 
                 transaction.set(newConversation, conversation);

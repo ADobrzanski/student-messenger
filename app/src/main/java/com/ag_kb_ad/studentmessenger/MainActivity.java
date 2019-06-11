@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_conversations:
-
+                    replaceFragment(new ConversationListFragment());
                     return true;
                 case R.id.navigation_invites:
                     replaceFragment(new FriendRequestsFragment());

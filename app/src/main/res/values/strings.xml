@@ -27,4 +27,7 @@
     <string name="desc_accept_invitation">accept invitation</string>
     <string name="btn_back_text"><![CDATA[< go back]]></string>
     <string name="send_friend_request_desc">Send friend request</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
