@@ -68,7 +68,7 @@ public class ConversationListFragment extends Fragment implements EventListener<
                 .orderBy("timestamp", Query.Direction.DESCENDING);
         conversationListQuery.addSnapshotListener(this);
 
-        mAdapter = new ConversationListAdapter(conversations);
+        mAdapter = new ConversationListAdapter(getContext(), conversations);
     }
 
     @Override

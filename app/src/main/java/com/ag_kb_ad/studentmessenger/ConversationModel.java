@@ -10,6 +10,7 @@ public class ConversationModel {
     private String friendAvatarURL;
     private String friendUid;
     private String lastMessage;
+    private String documentPath;
 
     public ConversationModel setName(String name) {
         this.name = name;
@@ -62,6 +63,15 @@ public class ConversationModel {
 
     public ConversationModel setFriendUid(String friendUid) {
         this.friendUid = friendUid;
+        return this;
+    }
+
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public ConversationModel setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
         return this;
     }
 }

@@ -1,8 +1,10 @@
 package com.ag_kb_ad.studentmessenger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +26,19 @@ import java.util.HashMap;
 
 public class ConversationListAdapter extends RecyclerView.Adapter<ConversationListAdapter.ConversationViewHolder> {
 
+    private Context context;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
     public class ConversationViewHolder extends RecyclerView.ViewHolder{
+        ConstraintLayout layout;
         ImageView img_avatar;
         TextView txt_name;
         TextView txt_last_message;
 
         public ConversationViewHolder(@NonNull View itemView) {
             super(itemView);
+            layout = itemView.findViewById(R.id.item_layout);
             img_avatar = itemView.findViewById(R.id.img_avatar);
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_last_message = itemView.findViewById(R.id.txt_last_message);
@@ -42,7 +47,8 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
 
     private ArrayList<ConversationModel> mDataset;
 
-    public ConversationListAdapter(ArrayList<ConversationModel> conversations){
+    public ConversationListAdapter(Context context, ArrayList<ConversationModel> conversations){
+        this.context = context;
         mDataset = conversations;
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
@@ -64,7 +70,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ConversationListAdapter.ConversationViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ConversationListAdapter.ConversationViewHolder viewHolder, final int i) {
         final ConversationModel conversationModel = mDataset.get(i);
 
 
@@ -72,6 +78,14 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
         viewHolder.txt_name.setText(conversationModel.getFriendDisplayName());
         viewHolder.txt_last_message.setText(conversationModel.getLastMessage());
 
+        viewHolder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MessageListActivity.class);
+                intent.putExtra("path", mDataset.get(i).getDocumentPath());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -15,6 +15,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"></activity>
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".MessageListActivity" />
         <activity android:name=".SampleUserActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>
